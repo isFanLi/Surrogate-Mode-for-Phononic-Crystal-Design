@@ -1,0 +1,12 @@
+2026-04-13 22:34:08,921 | INFO | 开始预处理声子晶体论文 9000 样本数据集
+2026-04-13 22:34:08,921 | INFO | data_root=C:\Users\fanli\Desktop\Dataset_for_surrogate_DL_11000
+2026-04-13 22:34:08,921 | INFO | output_dir=C:\Users\fanli\Desktop\Dataset_for_surrogate_DL_11000\processed_phononic_9000
+2026-04-13 22:34:08,943 | INFO | 数据源类型：files
+2026-04-13 22:34:08,943 | INFO | 训练集数量：8700，测试集数量：300
+2026-04-13 22:34:08,945 | INFO | 训练集类别统计：{'cross': 2900, 'diagonal': 2900, 'blot': 2900}
+2026-04-13 22:34:08,945 | INFO | 测试集类别统计：{'cross': 100, 'diagonal': 100, 'blot': 100}
+2026-04-13 22:34:08,949 | INFO | 加载 inputs/*.png 和 outputs/*.mat 源数据
+2026-04-13 22:34:14,074 | INFO | 频率 Min-Max：min=0.00072587031 kHz, max=668.60693 kHz
+2026-04-13 22:34:26,535 | INFO | 预处理完成
+2026-04-13 22:34:26,535 | INFO | 输出目录：C:\Users\fanli\Desktop\Dataset_for_surrogate_DL_11000\processed_phononic_9000
+2026-04-13 22:34:26,535 | INFO | DataLoader 验证 train batch X=[32, 1, 256, 256], Y=[32, 1464]

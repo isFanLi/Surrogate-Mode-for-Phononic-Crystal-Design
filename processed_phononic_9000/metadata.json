@@ -1,0 +1,99 @@
+{
+  "created_at": "2026-04-13T22:34:26",
+  "config": {
+    "data_root": "C:\\Users\\fanli\\Desktop\\Dataset_for_surrogate_DL_11000",
+    "source": "files",
+    "output_dir": "C:\\Users\\fanli\\Desktop\\Dataset_for_surrogate_DL_11000\\processed_phononic_9000",
+    "seed": 42,
+    "batch_size": 32,
+    "image_shape": [
+      1,
+      256,
+      256
+    ],
+    "label_length": 1464,
+    "frequency_key": "F",
+    "frequency_scale": 0.001,
+    "frequency_unit": "kHz",
+    "normalization": "global Min-Max fitted on all 9000 paper samples"
+  },
+  "scaler": {
+    "min_value": 0.0007258703117258847,
+    "max_value": 668.60693359375,
+    "scale": 668.6062077234383,
+    "unit": "kHz"
+  },
+  "split_counts": {
+    "train_total": 8700,
+    "test_total": 300,
+    "train_by_group": {
+      "cross": 2900,
+      "diagonal": 2900,
+      "blot": 2900
+    },
+    "test_by_group": {
+      "cross": 100,
+      "diagonal": 100,
+      "blot": 100
+    }
+  },
+  "validations": {
+    "train_images_shape": [
+      8700,
+      1,
+      256,
+      256
+    ],
+    "test_images_shape": [
+      300,
+      1,
+      256,
+      256
+    ],
+    "train_labels_shape": [
+      8700,
+      1464
+    ],
+    "test_labels_shape": [
+      300,
+      1464
+    ],
+    "image_dtype": "float32",
+    "label_dtype": "float32",
+    "train_label_min": 0.0,
+    "train_label_max": 1.0,
+    "test_label_min": 5.156551310392388e-07,
+    "test_label_max": 0.9956050515174866,
+    "train_image_unique_full_scan": [
+      0.0,
+      1.0
+    ],
+    "test_image_unique_full_scan": [
+      0.0,
+      1.0
+    ],
+    "train_batch_x_shape": [
+      32,
+      1,
+      256,
+      256
+    ],
+    "train_batch_y_shape": [
+      32,
+      1464
+    ],
+    "test_batch_x_shape": [
+      32,
+      1,
+      256,
+      256
+    ],
+    "test_batch_y_shape": [
+      32,
+      1464
+    ],
+    "torch_image_dtype": "torch.float32",
+    "torch_label_dtype": "torch.float32",
+    "cuda_available": true
+  }
+}
