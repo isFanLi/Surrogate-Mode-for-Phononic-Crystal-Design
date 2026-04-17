@@ -47,7 +47,7 @@ print("best.pth 加载")
 val_images = np.load(r'processed_phononic_9000\val_images.npy')
 val_labels = np.load(r'processed_phononic_9000\val_labels.npy')
 
-IMAGE_INDEX = 20
+IMAGE_INDEX = 288
 
 test_img_numpy = val_images[IMAGE_INDEX]  # 真实图片 (1, 256, 256)
 ground_truth = val_labels[IMAGE_INDEX]    # 真实标签 (1464,)
@@ -80,20 +80,20 @@ k_path = np.arange(NUM_K_POINTS) # X轴坐标
 # 开始用 Matplotlib 绘图
 plt.figure(figsize=(8, 6))
 plt.title(f"Phononic Band Structure (Validation Image #{IMAGE_INDEX})", fontsize=14, fontweight='bold')
-
+scaler:int = 668.6
 # 逐条画出 24 条线
 # 逐条画出 24 条能带的点阵
 for i in range(NUM_BANDS):
     if i == 0:
         # 真实值：红色实心圆点 (marker='o', linestyle='none' 取消连线)
-        plt.plot(k_path, truth_bands[i, :], color='red', marker='o', linestyle='none', markersize=4, label='Ground Truth (FEM)')
+        plt.plot(k_path, scaler*truth_bands[i, :], color='red', marker='o', linestyle='none', markersize=4, label='Ground Truth (FEM)')
         
         # 预测值：蓝色空心圆圈 (markerfacecolor='none' 实现空心效果)
-        plt.plot(k_path, pred_bands[i, :], color='blue', marker='o', markerfacecolor='none', linestyle='none', markersize=6, label='CNN Prediction')
+        plt.plot(k_path, scaler*pred_bands[i, :], color='blue', marker='o', markerfacecolor='none', linestyle='none', markersize=6, label='CNN Prediction')
     else:
         # 后面的线不加 label，防止图例刷屏
-        plt.plot(k_path, truth_bands[i, :], color='red', marker='o', linestyle='none', markersize=4)
-        plt.plot(k_path, pred_bands[i, :], color='blue', marker='o', markerfacecolor='none', linestyle='none', markersize=6)
+        plt.plot(k_path, scaler*truth_bands[i, :], color='red', marker='o', linestyle='none', markersize=4)
+        plt.plot(k_path, scaler*pred_bands[i, :], color='blue', marker='o', markerfacecolor='none', linestyle='none', markersize=6)
 
 # 美化图表
 plt.xlabel("Wave Vector (K-path index)", fontsize=12)
@@ -103,3 +103,18 @@ plt.legend(loc='upper right')
 plt.grid(True, linestyle=':', alpha=0.7)
 
 plt.show()
+
+# 制造一个假输入数据，让 ONNX 知道你数据的尺寸
+dummy_input_for_onnx = torch.randn(1, 1, 256, 256).to(device)
+
+# 导出模型！
+onnx_file_path = "phononic_cnn.onnx"
+torch.onnx.export(model, 
+                  dummy_input_for_onnx, 
+                  onnx_file_path, 
+                  export_params=True,
+                  opset_version=11, 
+                  input_names=['input_image'], 
+                  output_names=['band_frequencies'])
+
+print(f" ONNX：{onnx_file_path}")
