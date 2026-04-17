@@ -9,10 +9,12 @@ function negative_bandgap = calculate_bandgap(dna_vector, net)
     binary_img = single(img_256 > 0.5); 
     
 
-    formatted_input = reshape(binary_img, [256, 256, 1, 1]);
+    dl_input = reshape(binary_img, [256, 256, 1, 1]);
+    % 用GPU加速
+    % dl_input = gpuArray(dl_input);
     
     % 4. 召唤替身预测
-    preds = predict(net, formatted_input); 
+    preds = predict(net, dl_input); 
     
     % 5. 脱壳：新版 MATLAB 预测出的可能是 dlarray 类型，需要脱壳成普通数组
     if isdlarray(preds)
